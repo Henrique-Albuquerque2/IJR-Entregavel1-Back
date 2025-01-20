@@ -30,3 +30,11 @@ class TaskRepository:
             task.delete()
             return True
         return False
+    
+    @staticmethod
+    def get_task_summary():
+        return {
+            "pendente": TaskModel.objects(status="pendente").count(),
+            "emProgresso": TaskModel.objects(status="emProgresso").count(),
+            "finalizada": TaskModel.objects(status="finalizada").count(),
+        }

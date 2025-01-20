@@ -1,6 +1,7 @@
 from jose import jwt
 from datetime import datetime, timedelta, timezone
 from typing import Dict
+from jose.exceptions import JWTError, ExpiredSignatureError
 
 SECRET_KEY = "sua_chave_secreta"  # Use uma chave forte e segura
 ALGORITHM = "HS256"
@@ -17,5 +18,7 @@ def decode_access_token(token: str):
     try:
         decoded_jwt = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return decoded_jwt
-    except jwt.JWTError as e:
-        raise Exception("Token inválido ou expirado") from e
+    except ExpiredSignatureError:
+        raise Exception("Token expirado")
+    except JWTError as e:
+        raise Exception(f"Erro no token: {str(e)}")
