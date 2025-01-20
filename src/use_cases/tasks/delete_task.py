@@ -13,3 +13,4 @@ def delete_task(id: str, user_id: str = Depends(get_current_user)):
         return {"message": "Tarefa deletada com sucesso!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao deletar tarefa: {str(e)}")
+
